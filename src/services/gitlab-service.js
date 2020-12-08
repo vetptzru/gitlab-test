@@ -2,13 +2,11 @@ const { getJiraKeyByString } = require("../utils/common");
 
 class GitLabService {
   netService = null;
-  gitLabDomain = "";
-  gitLabToken = "";
+  gitLabDomain = "";  
 
-  constructor(netService, gitLabDomain = "", gitLabToken = "") {
+  constructor(netService, gitLabDomain = "") {
     this.netService = netService;
-    this.gitLabDomain = gitLabDomain;
-    this.gitLabToken = gitLabToken;
+    this.gitLabDomain = gitLabDomain;    
   }
 
   mapGitlabDiff(data) {
@@ -30,18 +28,41 @@ class GitLabService {
     return [];
   }
 
-  compareBranches = async (projectId, from, to) => {
-    const url = `${this.gitLabDomain}/projects/${projectId}/repository/compare?from=${from}&to=${to}&access_token=${this.gitLabToken}`;
+  getDiffByURL = async (url) => {
     let result = null;
     try {
-      const dataString = await this.netService.getByURL(url);
-      const obj = JSON.parse(dataString);
-      result = this.mapGitlabDiff(obj);
+      const dataString = await this.netService.getByURL(url);      
+      return JSON.parse(dataString);
     } catch (e) {
       console.error(e.message);
     }
     return result;
   };
+
+  compareBranches = async (projectId, from, to) => {
+    const url = `${this.gitLabDomain}/projects/${projectId}/repository/compare?from=${from}&to=${to}`;
+    const result = await this.getDiffByURL(url);
+    return this.mapGitlabDiff(result);
+  };
+
+  getCommitBetweenSHA = async (projectId, from, to) => {
+    const url = `${this.gitLabDomain}/projects/${projectId}/repository/compare?from=${from}&to=${to}`;        
+    const result = await this.getDiffByURL(url);
+    return this.mapGitlabDiff(result);
+  };
+
+  getCommitBySHA = async (projectId, sha) => {
+    const url = `${this.gitLabDomain}/projects/${projectId}/repository/commits/${sha}`;
+    const result = await this.getDiffByURL(url);
+    return result;
+  }
+
+  getCommitsBetweenDates = async (projectId, ref_name, since, until) => {
+    const url = `${this.gitLabDomain}/projects/${projectId}/repository/commits/?ref_name=${ref_name}&since=${since}&until=${until}`;
+    console.log(url);
+    const result = await this.getDiffByURL(url);
+    return result;
+  }
 }
 
 module.exports = {

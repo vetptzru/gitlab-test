@@ -12,7 +12,7 @@ async function compareBranches(branchFrom, branchTo) {
   const result = await planitService.getDiffBetwenBranches(
     branchFrom,
     branchTo
-  );
+  );  
   result.forEach(({ jiraKey, author_name }) => {
     console.log(`${jiraKey} by ${author_name}`);
   });

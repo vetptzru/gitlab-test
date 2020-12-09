@@ -7,11 +7,43 @@ const planitService = new PlanitService(new GitLabService(new NetworkService(), 
 planitService.getDiffBetwenBranches(branchFrom, branchTo);
 ```
 
+Output:
+```
+[
+  {
+    id: '6fe882c0c8d6063413666b961e984b72de71ef5e',
+    short_id: '6fe882c1',
+    created_at: '2020-10-07T15:36:19.000+03:00',
+    author_name: 'User Name',
+    author_email: 'user@domain.ru',
+    title: 'UIA-12233 add feature',       
+    jiraKey: 'UIA-12233'
+  },
+]
+```
+
+
+
 ### Get commits between two commits (diff):
 
 ```
 const planitService = new PlanitService(new GitLabService(new NetworkService(), GITLAB_API_URL), PROJECT_ID);
 planitService.getDiffBetweenCommits(shaFrom, shaTo);
+```
+
+Output:
+```
+[
+  {
+    id: '6fe882c0c8d6063413666b961e984b72de71ef5e',
+    short_id: '6fe882c1',
+    created_at: '2020-10-07T15:36:19.000+03:00',
+    author_name: 'User Name',
+    author_email: 'user@domain.ru',
+    title: 'UIA-12233 add feature',       
+    jiraKey: 'UIA-12233'
+  },
+]
 ```
 
 ## Uses GitLab API:

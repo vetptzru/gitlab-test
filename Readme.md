@@ -1,4 +1,4 @@
-## Usages
+## Usages:
 
 ### Get commits between two branches (diff):
 ```

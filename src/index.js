@@ -18,14 +18,14 @@ async function compareBranches(branchFrom, branchTo) {
   });
 }
 
-async function getCommitBySHA(shaFrom, shaTo) {
+async function compareCommitBySHA(shaFrom, shaTo) {
   const result = await planitService.getDiffBetweenCommits(shaFrom, shaTo);
   result.forEach(({ jiraKey, author_name }) => {
     console.log(`${jiraKey} by ${author_name}`);
   });
 }
 
-getCommitBySHA(
+compareCommitBySHA(
   "185d897b1e655a7483de1f1a6cf1c7172fb1f114",
   "8e70e4d45a02992f24ec1cc44cf48706285748c7"
 );

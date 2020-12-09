@@ -1,4 +1,4 @@
-const GITLAB_API_URL = "https://git.ringcentral.com/api/v4";
+const GITLAB_API_URL = "";
 const PROJECT_ID = 611;
 
 module.exports = {  
